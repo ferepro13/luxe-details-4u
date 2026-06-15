@@ -1,130 +1,175 @@
-import React from 'react'
-import { useState, useEffect} from 'react'
-import ErrorToast from './ErrorToast';
-import { useRef } from 'react';
+import React from 'react';
+import { useContext } from 'react';
+import { useFormContext } from 'react-hook-form';
 
+import FormScrollContext from '../contexts/FormScrollContext';
 
-const FormCTA = ({form, setForm}) => {
+const FormCTA = () => {
+  const formSectionRef =
+    useContext(FormScrollContext);
 
-    const phoneNumber = "5356661510";
-    const [error, setError] = useState("");
-    const nameRef = useRef();
-    const phoneRef = useRef();
-    const orderRef = useRef();
-    const dateRef = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useFormContext();
 
+  const phoneNumber = '5356661510';
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (error.length>0) setError("")
-        }, 2500);
-    }, [error])
-    
-    const validateFields = (form) => {
-        
-        const focusRef = (ref) => {
-            ref.current.focus();
+  const sendWhatsapp = ({
+    name,
+    order,
+    date,
+    phone
+  }) => {
+    const formattedDate =
+      new Date(date).toLocaleDateString(
+        'es-ES',
+        {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
         }
+      );
 
-        if (!form.name) {
-            setError("Por favor completa todos los campos");
-            focusRef(nameRef);
-            return false
-        }
-        if (!form.phone ) {
-            setError("Por favor completa todos los campos");
-            focusRef(phoneRef);
-            return false
-        }
-        if ( !form.order ) {
-            setError("Por favor completa todos los campos");
-            focusRef(orderRef);
-            return false
-        }
-        if ( !form.date) {
-            setError("Por favor completa todos los campos");
-            focusRef(dateRef);
-            return false
-        }
+    const message =
+      `Hola, mi nombre es ${name}.` +
+      `\nQuisiera hacer un pedido de:` +
+      `\n*${order}*` +
+      `\nPara la fecha: ${formattedDate}` +
+      `\nMi teléfono es: ${phone}`;
 
-        if (!/^\+?\d{6,15}$/.test(form.phone)) {
-            setError("Debe introducir un teléfono válido");
-            focusRef(phoneRef);
-            return false
-        }
-        if (form.order.length < 10) {
-            setError("Debe agregar un pedido válido");
-            focusRef(orderRef);
-            return false
-        }
-        return true
-    }
-    
-    const sendWhatsapp = (clientName, order, date, phone) => {
+    const encoded =
+      encodeURIComponent(message);
 
-        const formattedDate = new Date(date).toLocaleDateString('es-ES', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        });
-        const message = `Hola, mi nombre es ${clientName}. Quisiera hacer un pedido de:\n*${order}*\nPara la fecha: ${formattedDate}\nMi teléfono es: ${phone}`;
+    window.open(
+      `https://wa.me/${phoneNumber}?text=${encoded}`,
+      '_blank'
+    );
+  };
 
-        const encodedMessage = encodeURIComponent(message);
-        const cleanPhoneNumber = phoneNumber.replace(/\D/g, '');
-        try {
-            window.open(`https://wa.me/${cleanPhoneNumber}?text=${encodedMessage}`, '_blank');
-            return true;
-        } catch (error) {
-            console.log('Error con window.open:', error);
-        }
-    }
-
-    const handleSubmit = (e, form) => {
-        e.preventDefault();
-        if (!validateFields(form)) return;
-        
-        sendWhatsapp(form.name, form.order, form.date, form.phone)
-    }
-
+  const onSubmit = (data) => {
+    sendWhatsapp(data);
+  };
 
   return (
-    <section className="cta-section" id="contact">
-        <div className="container">
-            <p data-aos="fade-up" data-aos-duration="700">Completa el formulario y nos pondremos en contacto contigo para crear el regalo perfecto.</p>
-            
-            <div className="cta-form" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
-                <form id="pedido-form" method='POST'>
+    <section
+      className="cta-section"
+      id="contact"
+      ref={formSectionRef}
+    >
+      <div className="container">
+        <p>
+          Completa el formulario y nos
+          pondremos en contacto contigo.
+        </p>
 
-                    <div className="form-group">
-                        <input type="text" id="nombre" name="nombre" required aria-required="true" placeholder='Nombre'
-                        onChange={(e) => setForm({...form, name: e.target.value})} value={form.name} ref={nameRef}/>
-                    </div>
+        <div className="cta-form">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="Nombre"
+                {...register('name', {
+                  required:
+                    'Debe ingresar su nombre.'
+                })}
+              />
 
-                    <div className="form-group">
-                        <input type="tel" id="telefono" name="telefono" required aria-required="true" placeholder='Tu teléfono'
-                        onChange={(e) => setForm({...form, phone:e.target.value})} value={form.phone} ref={phoneRef}/>
-                    </div>
-
-                    <div className="form-group">
-                        <textarea id="pedido" name="pedido" rows="3" placeholder="Queremos escuchar tus ideas para tu regalo" required aria-required="true"
-                        onChange={(e) => setForm({...form, order:e.target.value})} value={form.order} ref={orderRef}></textarea>
-                    </div>
-
-                    <div className="form-group">
-                        <label for="fecha">Fecha deseada para el pedido</label>
-                        <input type="date" id="fecha" name="fecha" required aria-required="true" value={form.date}
-                        onChange={(e) => setForm({...form, date:e.target.value})} ref={dateRef}/>
-                    </div>
-
-                    <div className="cta-buttons">
-                        <button type="submit" className="btn whatsapp-btn" id="whatsapp-primary" aria-label="Enviar pedido por WhatsApp"
-                        onClick={e => handleSubmit(e, form)}>
-                            <i className="fab fa-whatsapp" aria-hidden="true"></i>Enviar por WhatsApp</button>
-                    </div>
-                </form>
+              {errors.name && (
+                <span className="field-error">
+                  {errors.name.message}
+                </span>
+              )}
             </div>
-        </div>
-        <ErrorToast errorMessage={error}/>
-    </section>
-  )
-}
 
-export default FormCTA
+            <div className="form-group">
+              <input
+                type="tel"
+                placeholder="Tu teléfono"
+                {...register('phone', {
+                  required:
+                    'Debe ingresar un teléfono.',
+
+                  pattern: {
+                    value:
+                      /^\+?\d{6,15}$/,
+
+                    message:
+                      'Debe introducir un teléfono válido.'
+                  }
+                })}
+              />
+
+              {errors.phone && (
+                <span className="field-error">
+                  {errors.phone.message}
+                </span>
+              )}
+            </div>
+
+            <div className="form-group">
+              <textarea
+                rows="3"
+                placeholder="Queremos escuchar tus ideas para tu regalo"
+                {...register('order', {
+                  required:
+                    'Debe escribir un pedido.',
+
+                  minLength: {
+                    value: 10,
+                    message:
+                      'El pedido es demasiado corto.'
+                  }
+                })}
+              />
+
+              {errors.order && (
+                <span className="field-error">
+                  {errors.order.message}
+                </span>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="fecha">
+                Fecha deseada para el pedido
+              </label>
+
+              <input
+                id="fecha"
+                type="date"
+                {...register('date', {
+                  required:
+                    'Seleccione una fecha.'
+                })}
+              />
+
+              {errors.date && (
+                <span className="field-error">
+                  {errors.date.message}
+                </span>
+              )}
+            </div>
+
+            <div className="cta-buttons">
+              <button
+                type="submit"
+                className="btn whatsapp-btn"
+              >
+                <i className="fab fa-whatsapp" />
+                Enviar por WhatsApp
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FormCTA;

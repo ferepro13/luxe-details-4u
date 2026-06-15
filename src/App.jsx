@@ -1,27 +1,41 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useRef } from 'react';
 
-import Header from './components/Header'
-import Hero from './components/Hero'
-import ProductsGallery from './components/ProductsGallery'
-import FormCTA from './components/FormCTA'
+import Header from './components/Header';
+import Hero from './components/Hero';
 import History from "./components/History"
+import ProductsGallery from './components/ProductsGallery';
+import FormCTA from './components/FormCTA';
+
+import FormScrollContext from './contexts/FormScrollContext';
 
 const App = () => {
+  const methods = useForm({ //contiene todos los metodos q se pueden extraer de useForm 
+    mode: 'onBlur',
+    /*defaultValues: {
+      name: '',
+      phone: '',
+      order: '',
+      date: ''
+    }*/
+  });
 
-  const [form, setForm] = useState({name:"", phone:"", order:"", date: ``})
-  const addProductToOrder = (productName) => setForm({...form, order: form.order.length>0 ? `${form.order} \n${productName}` : productName});
+  const formSectionRef = useRef(null);
 
   return (
-    <>
-        <Header/>
-        <Hero/>
-
+    <FormProvider {...methods}>
+      <FormScrollContext.Provider
+        value={formSectionRef}
+      >
+        <Header />
+        <Hero />
         <History/>
-        <ProductsGallery productAction={addProductToOrder}/>
-        <FormCTA form={form} setForm={setForm}/>
-    </>
-  )
-}
+        <ProductsGallery />
+        <FormCTA />
+      </FormScrollContext.Provider>
+    </FormProvider>
+  );
+};
 
-export default App
+export default App;

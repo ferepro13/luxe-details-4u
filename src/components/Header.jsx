@@ -13,7 +13,7 @@ const Header = () => {
             <nav aria-label="Main menu">
                 <ul hidden = {false}>
                     <li><a href="#home">Inicio</a></li>
-                    <li><a href="#about">Conócenos</a></li>
+                    <li><a href="#history">Conócenos</a></li>
                     <li><a href="#catalog">Catálogo</a></li>
                     <li><a href="#contact">Contacto</a></li>
                 </ul>
