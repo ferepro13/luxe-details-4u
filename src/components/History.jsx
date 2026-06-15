@@ -11,7 +11,7 @@ const History = () => {
         con nuestros presentes creativos y personalizables a tu gusto y presupuesto. Nuestra prioridad es la atención a los
         detalles, nos encargamos de dar ese toque mágico y lujoso a cada regalo. 
       </p>
-      <a href="#menu" class="btn">Ver Carta</a>
+      <a href="#catalog" class="btn">Ver Tienda</a>
     </div>
    </section>
   )

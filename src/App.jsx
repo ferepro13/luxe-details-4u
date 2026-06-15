@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import ProductsGallery from './components/ProductsGallery'
 import FormCTA from './components/FormCTA'
+import History from "./components/History"
 
 const App = () => {
 
@@ -16,7 +17,7 @@ const App = () => {
         <Header/>
         <Hero/>
 
-        
+        <History/>
         <ProductsGallery productAction={addProductToOrder}/>
         <FormCTA form={form} setForm={setForm}/>
     </>
