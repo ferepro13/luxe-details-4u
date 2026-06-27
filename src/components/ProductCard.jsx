@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import FormScrollContext from '../contexts/FormScrollContext';
 
 const ProductCard = ({
+  category,
   name,
   price,
   path,
@@ -25,8 +26,8 @@ const ProductCard = ({
 
     const newOrder =
       currentOrder
-        ? `${currentOrder}\n${name}`
-        : name;
+        ? `${currentOrder}\n${category} ${name}`
+        : category + " " + name;
 
     setValue(
       'order',
