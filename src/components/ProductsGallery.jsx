@@ -9,10 +9,10 @@ const ProductsGallery = () => {
             <h3>Ramos de Rosas Eternas</h3>
             <div className="products-grid">
               <ProductCard category="Ramos de Rosas Eternas" name="Mini 3 Rosas" price="3500 cup / 8 usd" path="src\\assets\\image35.1.webp"/>
-              <ProductCard name="Regular 7 Rosas" price="6000 cup / 14 usd" path="src\\assets\\image31.1.webp"/>
-              <ProductCard name="Estandar 10 Rosas" price="8000 cup / 18 usd" path="src\\assets\\image6.1.webp"/>
-              <ProductCard name="Grande 15 Rosas" price="10500 cup / 25 usd" path="src\\assets\\image7.1.webp"/>
-              <ProductCard name="Luxe 20-25 Rosas" price="15000 cup / 35 usd" path="src\\assets\\image33.2.webp"/>                
+              <ProductCard category="Ramos de Rosas Eternas" name="Regular 7 Rosas" price="6000 cup / 14 usd" path="src\\assets\\image31.1.webp"/>
+              <ProductCard category="Ramos de Rosas Eternas" name="Estandar 10 Rosas" price="8000 cup / 18 usd" path="src\\assets\\image6.1.webp"/>
+              <ProductCard category="Ramos de Rosas Eternas" name="Grande 15 Rosas" price="10500 cup / 25 usd" path="src\\assets\\image7.1.webp"/>
+              <ProductCard category="Ramos de Rosas Eternas" name="Luxe 20-25 Rosas" price="15000 cup / 35 usd" path="src\\assets\\image33.2.webp"/>                
             </div>
             <h3>Cajas Corazón</h3>
             <div className="products-grid">

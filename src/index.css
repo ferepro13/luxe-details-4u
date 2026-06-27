@@ -208,7 +208,7 @@ nav a:hover::after {
 }
 
 .hero-title {
-  color: var(--clr-primary-dark); margin-bottom: 1rem; font-weight: 800;
+  color: var(--clr-primary-dark); margin-bottom: 1rem; 
 }
 
 .hero-sub {
