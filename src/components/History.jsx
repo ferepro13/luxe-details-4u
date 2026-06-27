@@ -2,7 +2,7 @@ import React from 'react'
 
 const History = () => {
   return (
-    <section class="history" id="history">
+    <section className="history" id="history">
     <div class="container history-container">
       <p>¿Quiénes somos?</p>
       <p>Regalos mágicos, a solo un toque</p>

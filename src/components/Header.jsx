@@ -1,17 +1,19 @@
 import React from "react";
 
-const Header = () => {
+const Header = ({navVisible}) => {
     return <header>
         <div className="header-container">
             <div className="logo" aria-label="business logo">
                 <img src="some" alt="Logo"/>
                 <span>Luxe Details 4u</span>
             </div>
+
             <div className="mobile-menu" aria-label="Open nav menu" role="button" tabIndex="0" hidden={true}>
-                <i className="fas fa-bars" aria-hidden="true"></i>
+                <i className="fas fa-bars" aria-hidden="true">TAB</i>
             </div>
+            
             <nav aria-label="Main menu">
-                <ul hidden = {false}>
+                <ul className="list" style={Number(window.innerWidth)<560 ? (navVisible ? {display:"flex"} : {display:"none"}) : {display:"flex"}}>
                     <li><a href="#home">Inicio</a></li>
                     <li><a href="#history">Conócenos</a></li>
                     <li><a href="#catalog">Catálogo</a></li>

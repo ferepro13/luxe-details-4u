@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -23,16 +23,24 @@ const App = () => {
 
   const formSectionRef = useRef(null);
 
+    const [navBarVisibility, setNavBarVisibility] = useState(false);
+
   return (
     <FormProvider {...methods}>
       <FormScrollContext.Provider
         value={formSectionRef}
       >
-        <Header />
-        <Hero />
-        <History/>
-        <ProductsGallery />
-        <FormCTA />
+        <div onClick={e => {
+          if (e.target?.className === "fas fa-bars") {setNavBarVisibility(!navBarVisibility)}
+          else if (e.target?.className !== "list") {setNavBarVisibility(false)}
+        }}>
+          <Header navVisible={navBarVisibility}/>
+          <Hero />
+          <History/>
+          <ProductsGallery />
+          <FormCTA />
+        </div>
+
       </FormScrollContext.Provider>
     </FormProvider>
   );
