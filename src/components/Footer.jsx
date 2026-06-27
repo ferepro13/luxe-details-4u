@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Contacto</h3>
           <p><i className="fas fa-map-marker-alt"></i> Dirección, Matanzas, Cuba</p>
-          <p><i className="fas fa-phone"></i> +53 55555555</p>
+          <p><i className="fas fa-phone"></i> +53 52029814</p>
         </div>
       </div>
       <div className="copyright">
