@@ -3,7 +3,7 @@ import React from 'react'
 const History = () => {
   return (
     <section className="history" id="history">
-    <div class="container history-container">
+    <div className="container history-container">
       <p>¿Quiénes somos?</p>
       <p>Regalos mágicos, a solo un toque</p>
       <p>
@@ -11,7 +11,7 @@ const History = () => {
         con nuestros presentes creativos y personalizables a tu gusto y presupuesto. Nuestra prioridad es la atención a los
         detalles, nos encargamos de dar ese toque mágico y lujoso a cada regalo. 
       </p>
-      <a href="#catalog" class="btn">Ver Tienda</a>
+      <a href="#catalog" className="btn">Ver Tienda</a>
     </div>
    </section>
   )

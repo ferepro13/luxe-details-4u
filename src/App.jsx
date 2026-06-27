@@ -7,7 +7,7 @@ import Hero from './components/Hero';
 import History from "./components/History"
 import ProductsGallery from './components/ProductsGallery';
 import FormCTA from './components/FormCTA';
-
+import Footer from './components/Footer';
 import FormScrollContext from './contexts/FormScrollContext';
 
 const App = () => {
@@ -39,6 +39,7 @@ const App = () => {
           <History/>
           <ProductsGallery />
           <FormCTA />
+          <Footer />
         </div>
 
       </FormScrollContext.Provider>
