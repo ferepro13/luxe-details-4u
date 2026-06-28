@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.jpg"
+import logo from "/logo.jpg"
 
 const Header = ({navVisible}) => {
     return <header>
