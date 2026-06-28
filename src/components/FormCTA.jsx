@@ -14,7 +14,7 @@ const FormCTA = () => {
     formState: { errors }
   } = useFormContext();
 
-  const phoneNumber = '5356661510';
+  const phoneNumber = '5352029814';
 
   const sendWhatsapp = ({
     name,
